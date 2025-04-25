@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/doctor-search/static/css/main.bee8f12f.css",
+    "main.js": "/doctor-search/static/js/main.34304e10.js",
+    "index.html": "/doctor-search/index.html",
+    "main.bee8f12f.css.map": "/doctor-search/static/css/main.bee8f12f.css.map",
+    "main.34304e10.js.map": "/doctor-search/static/js/main.34304e10.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bee8f12f.css",
+    "static/js/main.34304e10.js"
+  ]
+}
