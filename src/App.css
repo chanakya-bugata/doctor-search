@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 :root {
@@ -36,16 +37,18 @@ body {
 /* Header Styles */
 .header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .header h1 {
-  font-size: 3rem;
+  font-size: clamp(1.5rem, 5vw, 3rem);
   font-weight: 800;
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+  line-height: 1.2;
 }
 
 /* Search Container */
@@ -53,16 +56,18 @@ body {
   position: relative;
   max-width: 600px;
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .search-input {
   width: 100%;
   padding: 1rem 1rem 1rem 3rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
   border: 2px solid var(--border);
   border-radius: 1rem;
   background: var(--card-bg);
   transition: all 0.3s ease;
+  -webkit-appearance: none;
 }
 
 .search-input:focus {
@@ -85,6 +90,7 @@ body {
   grid-template-columns: 300px 1fr;
   gap: 2rem;
   margin-top: 2rem;
+  padding: 0 1rem;
 }
 
 /* Filter Panel */
@@ -96,6 +102,7 @@ body {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 2rem;
+  z-index: 10;
 }
 
 .filter-content h3 {
@@ -243,14 +250,14 @@ input:checked + .slider:before {
 /* Doctor List Grid */
 .doctor-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
 }
 
 /* Doctor Card */
 .doctor-card {
   background: var(--card-bg);
-  border-radius: 1.5rem;
+  border-radius: 1rem;
   overflow: hidden;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
@@ -258,7 +265,7 @@ input:checked + .slider:before {
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  padding: 1.5rem;
 }
 
 .doctor-card:hover {
@@ -436,33 +443,155 @@ input:checked + .slider:before {
   }
 }
 
+/* Mobile Filter Panel */
+.mobile-filter-button {
+  display: none;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background: var(--primary);
+  color: white;
+  padding: 1rem;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  z-index: 20;
+  cursor: pointer;
+  border: none;
+}
+
+.close-filter-button {
+  display: none;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .main-content {
     grid-template-columns: 1fr;
   }
+
+  .filter-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    border-radius: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 30;
+    background: var(--card-bg);
+  }
+
+  .filter-panel.active {
+    transform: translateX(0);
+  }
+
+  .mobile-filter-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .close-filter-button {
+    display: block;
+  }
 }
 
 @media (max-width: 768px) {
   .app {
-    padding: 1rem;
+    padding: 1rem 0;
   }
 
-  .header h1 {
-    font-size: 2rem;
+  .header {
+    margin-bottom: 1.5rem;
+  }
+
+  .search-container {
+    padding: 0 1rem;
+  }
+
+  .main-content {
+    padding: 0 1rem;
+    margin-top: 1.5rem;
   }
 
   .doctor-list {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .doctor-card {
+    padding: 1rem;
   }
 
   .doctor-image-container {
-    width: 140px;
-    height: 140px;
+    width: 120px;
+    height: 120px;
   }
 
   .doctor-info {
-    padding: 1rem;
+    padding: 1rem 0;
+  }
+
+  .consultation-badges {
+    flex-wrap: wrap;
+  }
+
+  .consultation-badge {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+  }
+
+  .doctor-info p {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .doctor-info h3 {
+    font-size: 1.1rem;
+  }
+
+  .doctor-image-container {
+    width: 100px;
+    height: 100px;
+  }
+
+  .doctor-intro {
+    -webkit-line-clamp: 2;
+  }
+}
+
+@media (hover: none) {
+  .doctor-card:hover {
+    transform: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .doctor-card:hover .doctor-image {
+    transform: none;
+  }
+
+  .checkbox-group label:hover {
+    color: var(--muted);
+  }
+}
+
+/* Touch Device Optimizations */
+@media (pointer: coarse) {
+  .checkbox-group label,
+  .toggle-switch,
+  select,
+  button {
+    min-height: 44px;
+  }
+
+  input[type="checkbox"] {
+    min-width: 24px;
+    min-height: 24px;
   }
 }
 
