@@ -7,7 +7,6 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
   onFilterChange,
   specialties,
 }) => {
-  const [isOpen, setIsOpen] = useState(false); // For mobile collapse
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const handleConsultationModeChange = (mode: 'Video' | 'In Clinic') => {
@@ -42,24 +41,20 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
 
   return (
     <>
-      <div className={`filter-panel ${isFilterOpen ? 'active' : ''}`}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 600 }}>Filters</h2>
+      <aside className={`filter-panel ${isFilterOpen ? 'active' : ''}`}>
+        <div className="filter-header">
+          <h2>Filters</h2>
           <button
             onClick={toggleFilter}
             className="close-filter-button"
-            style={{
-              background: 'none',
-              border: 'none',
-              padding: '0.5rem',
-              cursor: 'pointer'
-            }}
+            aria-label="Close filters"
           >
             <X size={24} />
           </button>
         </div>
+
         <div className="filter-content">
-          <div className="consultation-mode-filter">
+          <section className="filter-section">
             <h3>Consultation Mode</h3>
             <div className="toggle-group">
               <label className="toggle-switch">
@@ -69,7 +64,8 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                   onChange={() => handleConsultationModeChange('Video')}
                   data-testid="consultation-mode-video"
                 />
-                <span className="slider">Video Consult</span>
+                <span className="slider"></span>
+                <span className="toggle-label">Video Consult</span>
               </label>
               <label className="toggle-switch">
                 <input
@@ -78,12 +74,13 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                   onChange={() => handleConsultationModeChange('In Clinic')}
                   data-testid="consultation-mode-clinic"
                 />
-                <span className="slider">In Clinic</span>
+                <span className="slider"></span>
+                <span className="toggle-label">In Clinic</span>
               </label>
             </div>
-          </div>
+          </section>
 
-          <div className="specialties-filter">
+          <section className="filter-section">
             <h3>Specialties</h3>
             <div className="checkbox-group">
               {specialties.map((specialty: string) => (
@@ -98,27 +95,28 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                 </label>
               ))}
             </div>
-          </div>
+          </section>
 
-          <div className="sort-filter">
+          <section className="filter-section">
             <h3>Sort By</h3>
             <select
               value={filters.sortBy}
               onChange={(e) => handleSortChange(e.target.value as 'fees' | 'experience')}
               data-testid="sort-select"
+              className="sort-select"
             >
               <option value="">None</option>
               <option value="fees">Fees (Low to High)</option>
               <option value="experience">Experience (High to Low)</option>
             </select>
-          </div>
+          </section>
 
           <button className="clear-filters" onClick={clearFilters} data-testid="clear-filters">
             Clear Filters
           </button>
         </div>
-      </div>
-      <button className="mobile-filter-button" onClick={toggleFilter}>
+      </aside>
+      <button className="mobile-filter-button" onClick={toggleFilter} aria-label="Show filters">
         <Filter size={24} />
       </button>
     </>
