@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/doctor-search/static/css/main.bee8f12f.css",
+    "main.css": "/doctor-search/static/css/main.c07e8f63.css",
     "main.js": "/doctor-search/static/js/main.34304e10.js",
     "index.html": "/doctor-search/index.html",
-    "main.bee8f12f.css.map": "/doctor-search/static/css/main.bee8f12f.css.map",
+    "main.c07e8f63.css.map": "/doctor-search/static/css/main.c07e8f63.css.map",
     "main.34304e10.js.map": "/doctor-search/static/js/main.34304e10.js.map"
   },
   "entrypoints": [
-    "static/css/main.bee8f12f.css",
+    "static/css/main.c07e8f63.css",
     "static/js/main.34304e10.js"
   ]
 }
